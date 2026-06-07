@@ -1,0 +1,365 @@
+/* =============================================
+   TYPECOUNT — Character Counter Styles
+   Aesthetic: Warm Editorial / Typewriter Paper
+   ============================================= */
+
+:root {
+  --bg:        #f5f0e8;
+  --bg2:       #ede8dc;
+  --surface:   #faf7f2;
+  --ink:       #1a1208;
+  --ink-mid:   #4a3f2f;
+  --ink-dim:   #9a8f7f;
+  --accent:    #c0392b;
+  --accent2:   #8b6914;
+  --border:    #d4c9b5;
+  --border2:   #bfb49f;
+  --font-head: 'Playfair Display', serif;
+  --font-mono: 'Courier Prime', monospace;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  overflow-x: hidden;
+}
+
+/* ─── Paper texture ─── */
+.paper-texture {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.06;
+}
+
+/* ─── Decorative vertical lines ─── */
+.deco-lines {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 8%;
+}
+
+.deco-lines span {
+  width: 1px;
+  height: 100%;
+  background: var(--border);
+  opacity: 0.5;
+}
+
+/* ─── Scene ─── */
+.scene {
+  position: relative;
+  z-index: 10;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+/* ─── Card with slide-up bounce animation ─── */
+.card {
+  width: 100%;
+  max-width: 560px;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 2px;
+  padding: 44px 48px 40px;
+  position: relative;
+
+  /* Slide up from below */
+  animation: slide-up-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+
+  box-shadow:
+    0 2px 0 var(--border),
+    0 4px 0 var(--border2),
+    0 20px 60px rgba(0,0,0,0.12),
+    0 4px 20px rgba(0,0,0,0.08);
+}
+
+@keyframes slide-up-in {
+  0% {
+    opacity: 0;
+    transform: translateY(80px) scale(0.96);
+    filter: blur(4px);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-8px) scale(1.005);
+    filter: blur(0);
+  }
+  80% {
+    transform: translateY(4px) scale(0.998);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Red left border accent */
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  width: 3px;
+  background: var(--accent);
+  border-radius: 2px 0 0 2px;
+}
+
+/* ─── Header ─── */
+.card-header {
+  margin-bottom: 32px;
+  opacity: 0;
+  animation: fade-up 0.5s 0.5s ease forwards;
+}
+
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.issue-label, .date-label {
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+
+.title {
+  font-family: var(--font-head);
+  font-size: 52px;
+  font-weight: 900;
+  color: var(--ink);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  font-family: var(--font-mono);
+  font-style: italic;
+  font-size: 13px;
+  color: var(--ink-mid);
+  letter-spacing: 0.05em;
+  margin-bottom: 20px;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.divider-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border2);
+}
+
+.divider-icon {
+  color: var(--accent);
+  font-size: 12px;
+}
+
+/* ─── Textarea ─── */
+.textarea-wrapper {
+  position: relative;
+  margin-bottom: 24px;
+  opacity: 0;
+  animation: fade-up 0.5s 0.65s ease forwards;
+}
+
+.text-input {
+  width: 100%;
+  min-height: 200px;
+  padding: 20px;
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-radius: 1px;
+  font-family: var(--font-mono);
+  font-size: 15px;
+  color: var(--ink);
+  resize: vertical;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  line-height: 1.7;
+
+  /* Lined paper effect */
+  background-image: repeating-linear-gradient(
+    transparent,
+    transparent 27px,
+    var(--border) 27px,
+    var(--border) 28px
+  );
+  background-attachment: local;
+}
+
+.text-input::placeholder {
+  color: var(--ink-dim);
+  font-style: italic;
+}
+
+.text-input:focus {
+  border-color: var(--accent2);
+  box-shadow: 0 0 0 3px rgba(139,105,20,0.1);
+}
+
+/* Corner brackets */
+.textarea-corner {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-color: var(--accent);
+  border-style: solid;
+}
+
+.textarea-corner.tl { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
+.textarea-corner.tr { top: -1px; right: -1px; border-width: 2px 2px 0 0; }
+.textarea-corner.bl { bottom: -1px; left: -1px; border-width: 0 0 2px 2px; }
+.textarea-corner.br { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+
+/* ─── Stats row ─── */
+.stats-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  margin-bottom: 24px;
+  padding: 20px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 1px;
+  opacity: 0;
+  animation: fade-up 0.5s 0.8s ease forwards;
+}
+
+.stat-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.stat-number {
+  font-family: var(--font-head);
+  font-size: 42px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1;
+  transition: all 0.2s;
+}
+
+.stat-number.pop {
+  transform: scale(1.15);
+  color: var(--accent);
+}
+
+.stat-label {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+
+.stat-divider {
+  color: var(--border2);
+  font-size: 28px;
+  font-weight: 100;
+}
+
+/* ─── Progress bar ─── */
+.progress-section {
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: fade-up 0.5s 0.9s ease forwards;
+}
+
+.progress-bar {
+  height: 3px;
+  background: var(--border);
+  border-radius: 99px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--accent);
+  border-radius: 99px;
+  transition: width 0.4s ease;
+}
+
+.progress-label {
+  font-size: 11px;
+  font-style: italic;
+  color: var(--ink-dim);
+  letter-spacing: 0.05em;
+}
+
+/* ─── Clear button ─── */
+.clear-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 14px;
+  background: transparent;
+  border: 1px solid var(--border2);
+  border-radius: 1px;
+  color: var(--ink-mid);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+  opacity: 0;
+  animation: fade-up 0.5s 1s ease forwards;
+}
+
+.clear-btn:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(192,57,43,0.25);
+}
+
+.clear-btn:active {
+  transform: translateY(1px);
+}
+
+.clear-icon {
+  font-size: 11px;
+}
+
+/* ─── Fade up utility ─── */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
